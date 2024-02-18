@@ -1,0 +1,76 @@
+## zh-CN
+
+三种大小的选择框，当 size 分别为 `large` 和 `small` 时，输入框高度为 `40px` 和 `24px` ，默认高度为 `32px`。
+
+## en-US
+
+The height of the input field for the select defaults to 32px. If size is set to large, the height will be 40px, and if set to small, 24px.
+```tsx
+import React, { useState } from 'react';
+import { Radio, Select, Space } from 'antd';
+import type { ConfigProviderProps, RadioChangeEvent, SelectProps } from 'antd';
+
+type SizeType = ConfigProviderProps['componentSize'];
+
+const options: SelectProps['options'] = [];
+
+for (let i = 10; i < 36; i++) {
+  options.push({
+    value: i.toString(36) + i,
+    label: i.toString(36) + i,
+  });
+}
+
+const handleChange = (value: string | string[]) => {
+  console.log(`Selected: ${value}`);
+};
+
+const App: React.FC = () => {
+  const [size, setSize] = useState<SizeType>('middle');
+
+  const handleSizeChange = (e: RadioChangeEvent) => {
+    setSize(e.target.value);
+  };
+
+  return (
+    <>
+      <Radio.Group value={size} onChange={handleSizeChange}>
+        <Radio.Button value="large">Large</Radio.Button>
+        <Radio.Button value="middle">Default</Radio.Button>
+        <Radio.Button value="small">Small</Radio.Button>
+      </Radio.Group>
+      <br />
+      <br />
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Select
+          size={size}
+          defaultValue="a1"
+          onChange={handleChange}
+          style={{ width: 200 }}
+          options={options}
+        />
+        <Select
+          mode="multiple"
+          size={size}
+          placeholder="Please select"
+          defaultValue={['a10', 'c12']}
+          onChange={handleChange}
+          style={{ width: '100%' }}
+          options={options}
+        />
+        <Select
+          mode="tags"
+          size={size}
+          placeholder="Please select"
+          defaultValue={['a10', 'c12']}
+          onChange={handleChange}
+          style={{ width: '100%' }}
+          options={options}
+        />
+      </Space>
+    </>
+  );
+};
+
+export default App;
+```

@@ -1,0 +1,33 @@
+## zh-CN
+
+支持更灵活的响应式下的任意 flex 比例，该功能需要浏览器支持 CSS Variables。
+
+## en-US
+
+Support much more flexible responsive flex ratio, which requires CSS Variables supported by browser.
+```tsx
+import React from 'react';
+import { Col, Row } from 'antd';
+
+const App: React.FC = () => (
+  <Row>
+    {new Array(10).fill(0).map((_, index) => {
+      const key = `col-${index}`;
+      return (
+        <Col
+          key={key}
+          xs={{ flex: '100%' }}
+          sm={{ flex: '50%' }}
+          md={{ flex: '40%' }}
+          lg={{ flex: '20%' }}
+          xl={{ flex: '10%' }}
+        >
+          Col
+        </Col>
+      );
+    })}
+  </Row>
+);
+
+export default App;
+```
